@@ -2,18 +2,27 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './MaterialModule';
-import { SignupComponent } from './auth/signup/signup.component';
-import { LoginComponent } from './auth/login/login.component';
-import { TrainingComponent } from './training/training.component';
-import { PastTrainingComponent } from './training/past-training/past-training.component';
-import { NewTrainingComponent } from './training/new-training/new-training.component';
-import { CurrentTrainingComponent } from './training/current-training/current-training.component';
-import { WelcomeComponent } from './welcome/welcome.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { TrainingComponent } from './components/trainings/training/training.component';
+import { PastTrainingComponent } from './components/trainings/past-training/past-training.component';
+import { NewTrainingComponent } from './components/trainings/new-training/new-training.component';
+import { CurrentTrainingComponent } from './components/trainings/current-training/current-training.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { HeaderComponent } from './components/navigation/header/header.component';
+import { SidenavListComponent } from './components/navigation/sidenav-list/sidenav-list.component';
+import { StopTrainingComponent } from './components/trainings/current-training/stop-training.component';
+import { AuthService } from './services/auth.service';
+import { TrainingService } from './services/training.service';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -25,6 +34,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
     NewTrainingComponent,
     CurrentTrainingComponent,
     WelcomeComponent,
+    HeaderComponent,
+    SidenavListComponent,
+    StopTrainingComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +44,13 @@ import { WelcomeComponent } from './welcome/welcome.component';
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AuthService,TrainingService],
+  bootstrap: [AppComponent],
+  entryComponents: [StopTrainingComponent]
 })
 export class AppModule { }
